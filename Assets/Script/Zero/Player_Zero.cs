@@ -1,6 +1,6 @@
 using UnityEngine;
 
-class Player_Karpa : MonoBehaviour
+class Player_Zero : MonoBehaviour
 {
     // プレイヤーの移動の速さ
     public float speedBase = 15;
@@ -18,6 +18,12 @@ class Player_Karpa : MonoBehaviour
         // 左右のキー入力により速度を変更する
         myRigidbody.velocity = new Vector3(Input.GetAxis("Horizontal") * speed, 0f, 0f);
         Move();
+        if(transform.position.y < -3) 
+        {
+        
+        }
+
+
     }
 
     void Move()

@@ -1,7 +1,7 @@
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UIElements;
-class Ball_Karpa : MonoBehaviour
+class Ball_Kotatumuri : MonoBehaviour
 {
     // ボールの移動の速さを指定する変数
     public float speedBase = 15;
@@ -11,9 +11,6 @@ class Ball_Karpa : MonoBehaviour
     public GameObject player;
     Vector3 m_velocity;
     int x, y;
-    GameObject[] tagObjects;
-    [SerializeField] GameObject Over;
-    [SerializeField] GameObject Clear;
     void Start()
     {
         angle = Random.Range(60,120);
@@ -40,44 +37,17 @@ class Ball_Karpa : MonoBehaviour
         float degree = rad * Mathf.Rad2Deg;
         return degree;
     }
-    void CheckOver()//ゲームオーバーを取得
-    {
-        tagObjects = GameObject.FindGameObjectsWithTag("Ball");
-        if (tagObjects.Length == 1)
-        {
-            Over.SetActive(true);//ゲームオーバー
-            speed = 0;
-        }
-    }
-    void CheckClear()//クリアを取得
-    {
-        tagObjects = GameObject.FindGameObjectsWithTag("Target");
-        if (tagObjects.Length == 0)
-        {
-            Clear.SetActive(true);//ゲームクリア
-            speed = 0;
-        }
-    }
     private void Update()
     {
         //左Ctrlを押している間加速
-        if (!Clear.activeSelf&& !Over.activeSelf) {
-            if (Input.GetKey(KeyCode.LeftControl))
-            {
-                speed = speedBase * 2;
-            }
-            else
-            {
-                speed = speedBase;
-            }
-        }
-        if (this.transform.position.y < -5) 
+        if (Input.GetKey(KeyCode.LeftControl))
         {
-            Destroy(gameObject);
-            CheckOver();
-
-
+            speed = speedBase*2;
         }
+        else 
+        {
+            speed = speedBase;
+        }     
 
         //現在角度を取得
         var direction = GetDirection(angle);
@@ -90,7 +60,6 @@ class Ball_Karpa : MonoBehaviour
         private void OnTriggerEnter2D(Collider2D collision)
     {
         // Handle collisions based on tag
-        CheckClear();
         switch (collision.tag)
         {
             case "LeftWall"://左端反射
