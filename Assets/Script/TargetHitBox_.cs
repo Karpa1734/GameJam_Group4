@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class TargetHitBox_ : MonoBehaviour
 {
-    // Start is called before the first frame update
     [SerializeField] GameObject ParentObj;
 
     private void OnTriggerEnter2D(Collider2D collision)

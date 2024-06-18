@@ -12,7 +12,7 @@ class Ball_ : MonoBehaviour
     int x, y;
     void Start()
     {
-        angle = Random.Range(210,300);
+        angle = Random.Range(60,120);
         Application.targetFrameRate = 60; // 30fpsに設定
         // Rigidbodyにアクセスして変数に保持しておく
         myRigidbody = GetComponent<Rigidbody2D>();
@@ -38,13 +38,14 @@ class Ball_ : MonoBehaviour
     }
     private void Update()
     {
+        //左Ctrlを押している間加速
         if (Input.GetKey(KeyCode.LeftControl))
         {
-            speed = 20;
+            speed = 24;
         }
         else 
         {
-            speed = 10;
+            speed = 12;
         }     
 
         //現在角度を取得
@@ -60,19 +61,17 @@ class Ball_ : MonoBehaviour
         // Handle collisions based on tag
         switch (collision.tag)
         {
-            case "LeftWall":
-            case "RightWall":
+            case "LeftWall"://左端反射
+            case "RightWall"://右端反射
                 angle = 180 - angle;
                 break;
-            case "TopWall":
-            case "UnderWall":
+            case "TopWall"://上端反射
+            case "UnderWall"://下端反射
                 angle = -angle;
                 break;
-            case "Player":
-                // Reflect angle based on player's position
+            case "Player"://自機に当たって反射
                 angle = GetAngleToPlayer()+180;
                 break;
-                // Add more cases as needed
         }
     }
 
