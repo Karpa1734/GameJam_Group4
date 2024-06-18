@@ -3,7 +3,8 @@ using UnityEngine;
 class Player_ : MonoBehaviour
 {
     // プレイヤーの移動の速さ
-    public float speed = 10f;
+    public float speedBase = 15;
+    private float speed;
     Rigidbody2D myRigidbody;
     int x, y;
     void Start()
@@ -32,11 +33,11 @@ class Player_ : MonoBehaviour
         //左シフトを押している間は速度低下
         if (Input.GetKey(KeyCode.LeftShift))
         {
-            speed = 3;
+            speed = speedBase/3;
         }
         else
         {
-            speed = 9;
+            speed = speedBase;
         }
 
         Vector3 nextPoint = transform.position + new Vector3(x, y, 0) * Time.deltaTime * speed;

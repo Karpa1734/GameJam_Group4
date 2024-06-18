@@ -4,9 +4,10 @@ using UnityEngine.UIElements;
 class Ball_ : MonoBehaviour
 {
     // ボールの移動の速さを指定する変数
-    public float speed = 3;
+    public float speedBase = 15;
+    private float speed;
     Rigidbody2D myRigidbody;
-    public float angle;
+    float angle;
     public GameObject player;
     Vector3 m_velocity;
     int x, y;
@@ -41,11 +42,11 @@ class Ball_ : MonoBehaviour
         //左Ctrlを押している間加速
         if (Input.GetKey(KeyCode.LeftControl))
         {
-            speed = 24;
+            speed = speedBase*2;
         }
         else 
         {
-            speed = 12;
+            speed = speedBase;
         }     
 
         //現在角度を取得
