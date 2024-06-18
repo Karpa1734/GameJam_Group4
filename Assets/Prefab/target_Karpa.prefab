@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3465631197454199915}
   - component: {fileID: 8218157358486879270}
   m_Layer: 0
-  m_Name: target
+  m_Name: target_Karpa
   m_TagString: Target
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
