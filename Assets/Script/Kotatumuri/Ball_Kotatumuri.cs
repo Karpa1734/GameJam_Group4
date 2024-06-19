@@ -64,7 +64,7 @@ class Ball_Kotatumuri : MonoBehaviour
     {
         CheckClear();
         //カウントダウンが終わったら動き出す
-        if (Player_Karpa.frame > 210)
+        if (Player_Kotatumuri.frame > 210)
         {
             //左Ctrlを押している間加速
             if (!Clear.activeSelf && !Over.activeSelf)
