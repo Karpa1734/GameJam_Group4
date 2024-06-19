@@ -1,7 +1,5 @@
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.UIElements;
-using static TMPro.SpriteAssetUtilities.TexturePacker_JsonArray;
+
 class Ball_Karpa : MonoBehaviour
 {
     // ƒ{[ƒ‹‚ÌˆÚ“®‚Ì‘¬‚³‚ğw’è‚·‚é•Ï”
@@ -9,7 +7,7 @@ class Ball_Karpa : MonoBehaviour
     private float speed;
     Rigidbody2D myRigidbody;
     float angle;
-    public GameObject player;
+    [SerializeField] GameObject player;
     Vector3 m_velocity;
     int x, y;
     GameObject[] tagObjects;

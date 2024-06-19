@@ -22,11 +22,7 @@ public class Title : MonoBehaviour
             Secret.interactable = true;
             Secrettxt.text = "StageEX";
         }
-        else 
-        {
-            Secret.interactable = false;
-            Secrettxt.text = "?????";
-        }
+        
     }
 
     public void OnButton(int i)

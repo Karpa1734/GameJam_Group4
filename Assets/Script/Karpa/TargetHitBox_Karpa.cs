@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class TargetHitBox_Karpa : MonoBehaviour
 {
-    [SerializeField] GameObject ParentObj;
-    //的を壊した時の処理(弾の加速、分裂、消滅、etc…)
-    private void OnTriggerEnter2D(Collider2D collision)
+    GameObject ParentObj;
+    TargetLife_Karpa scParent;
+    private void Start()
     {
-        if (collision.CompareTag("Ball"))
-        {
-            Destroy(ParentObj);
-        }
+        ParentObj = transform.parent.gameObject;
+        scParent = GetComponent<TargetLife_Karpa>();
     }
+    //的を壊した時の処理(弾の加速、分裂、消滅、etc…)
+
 }
