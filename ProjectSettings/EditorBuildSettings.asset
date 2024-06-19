@@ -8,4 +8,19 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Title.unity
     guid: 2cda990e2423bbf4892e6590ba056729
+  - enabled: 1
+    path: Assets/Scenes/Karpa.unity
+    guid: d791064114200ae4b9be365e87851d6a
+  - enabled: 1
+    path: Assets/Scenes/Fuji.unity
+    guid: ad9b1a4dc2ab0174b97ecb0e7cab085d
+  - enabled: 1
+    path: Assets/Scenes/Kotatumuri.unity
+    guid: 8990187cb83a90e4ea969a3989a3473c
+  - enabled: 1
+    path: Assets/Scenes/Zero.unity
+    guid: dc5226c4ab6c7c7448046daf21bdb761
+  - enabled: 1
+    path: Assets/Scenes/Extra.unity
+    guid: 77c19cfa7cdf8c34d8d9de4748bfdffc
   m_configObjects: {}

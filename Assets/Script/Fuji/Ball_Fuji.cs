@@ -1,6 +1,7 @@
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UIElements;
+using static TMPro.SpriteAssetUtilities.TexturePacker_JsonArray;
 class Ball_Fuji : MonoBehaviour
 {
     // ボールの移動の速さを指定する変数
@@ -11,14 +12,17 @@ class Ball_Fuji : MonoBehaviour
     public GameObject player;
     Vector3 m_velocity;
     int x, y;
+    GameObject[] tagObjects;
+    [SerializeField] GameObject Over;
+    [SerializeField] GameObject Clear;
     void Start()
     {
+        Over.SetActive(false);//ゲームオーバー非表示
+        Clear.SetActive(false);//ゲームクリア非表示
         angle = Random.Range(60,120);
         Application.targetFrameRate = 60; // 30fpsに設定
         // Rigidbodyにアクセスして変数に保持しておく
         myRigidbody = GetComponent<Rigidbody2D>();
-        var direction = GetDirection(angle);
-        m_velocity = direction * speed * 0.01f;
     }
     //弾の角度
     public static Vector3 GetDirection(float angle)
@@ -37,29 +41,62 @@ class Ball_Fuji : MonoBehaviour
         float degree = rad * Mathf.Rad2Deg;
         return degree;
     }
+    void CheckOver()//ゲームオーバーを取得
+    {
+        tagObjects = GameObject.FindGameObjectsWithTag("Ball");
+        if (tagObjects.Length == 1)
+        {
+            Over.SetActive(true);//ゲームオーバー
+            speed = 0;
+        }
+    }
+    void CheckClear()//クリアを取得
+    {
+        tagObjects = GameObject.FindGameObjectsWithTag("Target");
+        if (tagObjects.Length == 0)
+        {
+            PlayerPrefs.SetInt("Fuji_Clear", 1);
+            Clear.SetActive(true);//ゲームクリア
+            speed = 0;
+        }
+    }
     private void Update()
     {
-        //左Ctrlを押している間加速
-        if (Input.GetKey(KeyCode.LeftControl))
+        CheckClear();
+        //カウントダウンが終わったら動き出す
+        if (Player_Karpa.frame > 210)
         {
-            speed = speedBase*2;
-        }
-        else 
-        {
-            speed = speedBase;
-        }     
+            //左Ctrlを押している間加速
+            if (!Clear.activeSelf && !Over.activeSelf)
+            {
+                if (Input.GetKey(KeyCode.LeftControl))
+                {
+                    speed = speedBase * 2;
+                }
+                else
+                {
+                    speed = speedBase;
+                }
+            }
+            if (this.transform.position.y < -5)
+            {
+                Destroy(gameObject);
+                CheckOver();
+            }
 
-        //現在角度を取得
-        var direction = GetDirection(angle);
-        // 発射角度と速さから速度を求める
-        m_velocity = direction * speed * 0.01f;
-        transform.localPosition += m_velocity;
+            //現在角度を取得
+            var direction = GetDirection(angle);
+            // 発射角度と速さから速度を求める
+            m_velocity = direction * speed * 0.01f;
+            transform.localPosition += m_velocity;
+        }
     }
 
 
         private void OnTriggerEnter2D(Collider2D collision)
     {
         // Handle collisions based on tag
+        
         switch (collision.tag)
         {
             case "LeftWall"://左端反射
@@ -74,6 +111,7 @@ class Ball_Fuji : MonoBehaviour
                 angle = GetAngleToPlayer()+180;
                 break;
         }
+            
     }
 
 
