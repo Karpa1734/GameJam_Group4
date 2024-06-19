@@ -5,12 +5,14 @@ using UnityEngine;
 public class TargetHitBox_Fuji : MonoBehaviour
 {
     [SerializeField] GameObject ParentObj;
-    //“I‚ğ‰ó‚µ‚½‚Ìˆ—(’e‚Ì‰Á‘¬A•ª—ôAÁ–ÅAetcc)
+    public bool isdestroy;
+    //ï¿½Iï¿½ï¿½ï¿½ó‚µ‚ï¿½ï¿½ï¿½ï¿½Ìï¿½ï¿½ï¿½(ï¿½eï¿½Ì‰ï¿½ï¿½ï¿½ï¿½Aï¿½ï¿½ï¿½ï¿½Aï¿½ï¿½ï¿½ÅAetcï¿½c)
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Ball"))
-        {
-            Destroy(ParentObj);
+        {   if(isdestroy==true){
+            Destroy(collision.gameObject);
         }
+    Destroy(ParentObj);}
     }
 }

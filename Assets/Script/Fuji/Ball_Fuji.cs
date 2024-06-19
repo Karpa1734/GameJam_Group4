@@ -4,7 +4,7 @@ using UnityEngine.UIElements;
 using static TMPro.SpriteAssetUtilities.TexturePacker_JsonArray;
 class Ball_Fuji : MonoBehaviour
 {
-    // ƒ{[ƒ‹‚ÌˆÚ“®‚Ì‘¬‚³‚ğw’è‚·‚é•Ï”
+    // ï¿½{ï¿½[ï¿½ï¿½ï¿½ÌˆÚ“ï¿½ï¿½Ì‘ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½wï¿½è‚·ï¿½ï¿½Ïï¿½
     public float speedBase = 15;
     private float speed;
     Rigidbody2D myRigidbody;
@@ -13,18 +13,19 @@ class Ball_Fuji : MonoBehaviour
     Vector3 m_velocity;
     int x, y;
     GameObject[] tagObjects;
+    GameObject[] tagObjects2;
     [SerializeField] GameObject Over;
     [SerializeField] GameObject Clear;
     void Start()
     {
-        Over.SetActive(false);//ƒQ[ƒ€ƒI[ƒo[”ñ•\¦
-        Clear.SetActive(false);//ƒQ[ƒ€ƒNƒŠƒA”ñ•\¦
+        Over.SetActive(false);//ï¿½Qï¿½[ï¿½ï¿½ï¿½Iï¿½[ï¿½oï¿½[ï¿½ï¿½\ï¿½ï¿½
+        Clear.SetActive(false);//ï¿½Qï¿½[ï¿½ï¿½ï¿½Nï¿½ï¿½ï¿½Aï¿½ï¿½\ï¿½ï¿½
         angle = Random.Range(60,120);
-        Application.targetFrameRate = 60; // 30fps‚Éİ’è
-        // Rigidbody‚ÉƒAƒNƒZƒX‚µ‚Ä•Ï”‚É•Û‚µ‚Ä‚¨‚­
+        Application.targetFrameRate = 60; // 30fpsï¿½Éİ’ï¿½
+        // Rigidbodyï¿½ÉƒAï¿½Nï¿½Zï¿½Xï¿½ï¿½ï¿½Ä•Ïï¿½ï¿½É•Ûï¿½ï¿½ï¿½ï¿½Ä‚ï¿½ï¿½ï¿½
         myRigidbody = GetComponent<Rigidbody2D>();
     }
-    //’e‚ÌŠp“x
+    //ï¿½eï¿½ÌŠpï¿½x
     public static Vector3 GetDirection(float angle)
     {
         return new Vector3
@@ -33,7 +34,7 @@ class Ball_Fuji : MonoBehaviour
             Mathf.Sin(angle * Mathf.Deg2Rad),0
         );
     }
-    //ƒvƒŒƒCƒ„[‚Æ’e‚ÌŠÔ‚ÌŠp“x
+    //ï¿½vï¿½ï¿½ï¿½Cï¿½ï¿½ï¿½[ï¿½Æ’eï¿½ÌŠÔ‚ÌŠpï¿½x
     public float GetAngleToPlayer()
     {
         Vector3 dt = player.transform.position - this.transform.position;
@@ -41,32 +42,24 @@ class Ball_Fuji : MonoBehaviour
         float degree = rad * Mathf.Rad2Deg;
         return degree;
     }
-    void CheckOver()//ƒQ[ƒ€ƒI[ƒo[‚ğæ“¾
+    
+    void CheckClear()//ï¿½Nï¿½ï¿½ï¿½Aï¿½ï¿½ï¿½æ“¾
     {
-        tagObjects = GameObject.FindGameObjectsWithTag("Ball");
-        if (tagObjects.Length == 1)
-        {
-            Over.SetActive(true);//ƒQ[ƒ€ƒI[ƒo[
-            speed = 0;
-        }
-    }
-    void CheckClear()//ƒNƒŠƒA‚ğæ“¾
-    {
-        tagObjects = GameObject.FindGameObjectsWithTag("Target");
-        if (tagObjects.Length == 0)
+        tagObjects2 = GameObject.FindGameObjectsWithTag("Target");
+        if (tagObjects2.Length == 0)
         {
             PlayerPrefs.SetInt("Fuji_Clear", 1);
-            Clear.SetActive(true);//ƒQ[ƒ€ƒNƒŠƒA
+            Clear.SetActive(true);//ï¿½Qï¿½[ï¿½ï¿½ï¿½Nï¿½ï¿½ï¿½A
             speed = 0;
         }
     }
     private void Update()
     {
         CheckClear();
-        //ƒJƒEƒ“ƒgƒ_ƒEƒ“‚ªI‚í‚Á‚½‚ç“®‚«o‚·
+        //ï¿½Jï¿½Eï¿½ï¿½ï¿½gï¿½_ï¿½Eï¿½ï¿½ï¿½ï¿½ï¿½Iï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ç“®ï¿½ï¿½ï¿½oï¿½ï¿½
         if (Player_Fuji.frame > 210)
         {
-            //¶Ctrl‚ğ‰Ÿ‚µ‚Ä‚¢‚éŠÔ‰Á‘¬
+            //ï¿½ï¿½Ctrlï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä‚ï¿½ï¿½ï¿½Ô‰ï¿½ï¿½ï¿½
             if (!Clear.activeSelf && !Over.activeSelf)
             {
                 if (Input.GetKey(KeyCode.LeftControl))
@@ -79,35 +72,36 @@ class Ball_Fuji : MonoBehaviour
                 }
             }
             if (this.transform.position.y < -5)
-            {
-                Destroy(gameObject);
-                CheckOver();
+            {   Destroy(gameObject);
             }
 
-            //Œ»İŠp“x‚ğæ“¾
+            //ï¿½ï¿½ï¿½İŠpï¿½xï¿½ï¿½ï¿½æ“¾
             var direction = GetDirection(angle);
-            // ”­ËŠp“x‚Æ‘¬‚³‚©‚ç‘¬“x‚ğ‹‚ß‚é
+            // ï¿½ï¿½ï¿½ËŠpï¿½xï¿½Æ‘ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ç‘¬ï¿½xï¿½ï¿½ï¿½ï¿½ï¿½ß‚ï¿½
             m_velocity = direction * speed * 0.01f;
             transform.localPosition += m_velocity;
         }
     }
 
+            private void OnDestroy(){
+                Over.SetActive(true);
+            }
 
-        private void OnTriggerEnter2D(Collider2D collision)
+            private void OnTriggerEnter2D(Collider2D collision)
     {
         // Handle collisions based on tag
         
         switch (collision.tag)
         {
-            case "LeftWall"://¶’[”½Ë
-            case "RightWall"://‰E’[”½Ë
+            case "LeftWall"://ï¿½ï¿½ï¿½[ï¿½ï¿½ï¿½ï¿½
+            case "RightWall"://ï¿½Eï¿½[ï¿½ï¿½ï¿½ï¿½
                 angle = 180 - angle;
                 break;
-            case "TopWall"://ã’[”½Ë
-            case "UnderWall"://‰º’[”½Ë
+            case "TopWall"://ï¿½ï¿½[ï¿½ï¿½ï¿½ï¿½
+            case "UnderWall"://ï¿½ï¿½ï¿½[ï¿½ï¿½ï¿½ï¿½
                 angle = -angle;
                 break;
-            case "Player"://©‹@‚É“–‚½‚Á‚Ä”½Ë
+            case "Player"://ï¿½ï¿½ï¿½@ï¿½É“ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä”ï¿½ï¿½ï¿½
                 angle = GetAngleToPlayer()+180;
                 break;
         }
