@@ -47,6 +47,10 @@ public class Title : MonoBehaviour
         {
             SceneManager.LoadScene("Extra");
         }
+        else if (i == 6)
+        {
+            SceneManager.LoadScene("Extra");
+        }
     }
 
 }
