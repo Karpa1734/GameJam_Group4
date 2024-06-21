@@ -11,8 +11,14 @@ class Player_Karpa : MonoBehaviour
     int x, y;
     public static int frame = 0;
     [SerializeField] Text Count;
+    [SerializeField] Text Timer;
+    [SerializeField] GameObject Over;
+    [SerializeField] GameObject Clear;
+    int sec = 0;
+    int sec2 = 0;
     void Start()
     {
+        Timer.text = "00:00";
         frame = 0;
         // Rigidbodyにアクセスして変数に保持
         myRigidbody = GetComponent<Rigidbody2D>();
@@ -36,36 +42,43 @@ class Player_Karpa : MonoBehaviour
         if (frame == 210) { Count.text = "GO!!"; }
         if (frame == 240) { Count.text = " "; }
         //カウントダウンが終わったら動き出す
-        if (frame>210) { 
+        if (frame>210 && Over.activeSelf == false && Clear.activeSelf == false)
+        { 
         // 左右のキー入力により速度を変更する
         myRigidbody.velocity = new Vector3(Input.GetAxis("Horizontal") * speed, 0f, 0f);
         Move();
+            Timer.text = sec2.ToString("d2") + ":" + sec.ToString("d2");
+            sec++;
+            if(sec >= 60){ sec = 0; sec2 += 1; }
         }
+        else { speed= 0; }
     }
 
     void Move()
     {
-        x = (int)Input.GetAxisRaw("Horizontal");
-        y = (int)Input.GetAxisRaw("Vertical");
-        //左シフトを押している間は速度低下
-        if (Input.GetKey(KeyCode.LeftShift))
+        if (frame > 210 && Over.activeSelf == false && Clear.activeSelf == false)
         {
-            speed = speedBase/3;
+            x = (int)Input.GetAxisRaw("Horizontal");
+            y = (int)Input.GetAxisRaw("Vertical");
+            //左シフトを押している間は速度低下
+            if (Input.GetKey(KeyCode.LeftShift))
+            {
+                speed = speedBase / 3;
+            }
+            else
+            {
+                speed = speedBase;
+            }
+
+            Vector3 nextPoint = transform.position + new Vector3(x, y, 0) * Time.deltaTime * speed;
+            //Xは-4.2～4.2間でのみ移動可能
+            nextPoint = new Vector3(
+                      Mathf.Clamp(nextPoint.x, -4.2f, 4.2f),
+                      Mathf.Clamp(nextPoint.y, -4f, -4f),
+                      0
+                      );
+
+            transform.position = nextPoint;
         }
-        else
-        {
-            speed = speedBase;
-        }
-
-        Vector3 nextPoint = transform.position + new Vector3(x, y, 0) * Time.deltaTime * speed;
-        //Xは-4.2～4.2間でのみ移動可能
-        nextPoint = new Vector3(
-                  Mathf.Clamp(nextPoint.x, -4.2f,  4.2f),
-                  Mathf.Clamp(nextPoint.y, -4f, -4f),
-                  0
-                  );
-
-        transform.position = nextPoint;
-
     }
 }
