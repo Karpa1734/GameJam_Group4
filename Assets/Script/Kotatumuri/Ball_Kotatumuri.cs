@@ -5,7 +5,7 @@ using static TMPro.SpriteAssetUtilities.TexturePacker_JsonArray;
 class Ball_Kotatumuri : MonoBehaviour
 {
     // ƒ{[ƒ‹‚ÌˆÚ“®‚Ì‘¬‚³‚ğw’è‚·‚é•Ï”
-    public float speedBase = 15;
+    public static float speedBase = 15;
     private float speed;
     Rigidbody2D myRigidbody;
     float angle;
