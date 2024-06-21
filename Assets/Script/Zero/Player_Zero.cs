@@ -11,6 +11,10 @@ class Player_Zero : MonoBehaviour
     int x, y;
     public static int frame = 0;
     [SerializeField] Text Count;
+    [SerializeField] Text Timer;
+    [SerializeField] GameObject Gameover;
+    [SerializeField] GameObject Gamecrer;
+    int second1, second2;
     void Start()
     {
         frame = 0;
@@ -18,6 +22,9 @@ class Player_Zero : MonoBehaviour
         myRigidbody = GetComponent<Rigidbody2D>();
         //最初はカウントダウンは空白
         Count.text = "";
+        second1 = 0;
+        second2 = 0;
+        Timer.text = "00:00";
     }
 
     void Update()
@@ -40,6 +47,16 @@ class Player_Zero : MonoBehaviour
         // 左右のキー入力により速度を変更する
         myRigidbody.velocity = new Vector3(Input.GetAxis("Horizontal") * speed, 0f, 0f);
         Move();
+            if (Gameover.activeSelf == false && Gamecrer.activeSelf == false)
+            {
+                Timer.text =second2.ToString("d2")+":"+second1.ToString("d2");
+                second1++;
+                if (second1 >= 60)
+                {
+                    second2++;
+                    second1 = 0;
+                }
+            }
         }
     }
 
