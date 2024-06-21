@@ -18,6 +18,7 @@ class Ball_Kotatumuri : MonoBehaviour
     [SerializeField] GameObject Clear;
     void Start()
     {
+        speedBase = 15;
         Over.SetActive(false);//ゲームオーバー非表示
         Clear.SetActive(false);//ゲームクリア非表示
         angle = Random.Range(60,120);
