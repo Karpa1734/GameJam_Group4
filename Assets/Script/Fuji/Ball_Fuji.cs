@@ -63,14 +63,9 @@ class Ball_Fuji : MonoBehaviour
             //��Ctrl�������Ă���ԉ���
             if (!Clear.activeSelf && !Over.activeSelf)
             {
-                if (Input.GetKey(KeyCode.LeftControl))
-                {
-                    speed = speedBase * 2;
-                }
-                else
-                {
+               
                     speed = speedBase;
-                }
+                
             }
             if (this.transform.position.y < -5)
             {   Destroy(gameObject);

@@ -69,14 +69,9 @@ class Ball_Karpa : MonoBehaviour
             //¶Ctrl‚ğ‰Ÿ‚µ‚Ä‚¢‚éŠÔ‰Á‘¬
             if (!Clear.activeSelf && !Over.activeSelf)
             {
-                if (Input.GetKey(KeyCode.LeftControl))
-                {
-                    speed = speedBase * 2;
-                }
-                else
-                {
+               
                     speed = speedBase;
-                }
+                
             }
             if (this.transform.position.y < -5)
             {

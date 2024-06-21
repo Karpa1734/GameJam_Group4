@@ -11,7 +11,7 @@ public class TargetHitBox_Kotatumuri : MonoBehaviour
         if (collision.CompareTag("Ball"))
         {
             Destroy(ParentObj);
-            Ball_Kotatumuri.speedBase = Ball_Kotatumuri.speedBase + 5;
+            Ball_Kotatumuri.speedBase = Ball_Kotatumuri.speedBase + 3;
         }
     }
 }
