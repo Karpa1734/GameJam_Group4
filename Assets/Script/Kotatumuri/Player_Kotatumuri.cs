@@ -10,9 +10,15 @@ class Player_Kotatumuri : MonoBehaviour
     Rigidbody2D myRigidbody;
     int x, y;
     public static int frame = 0;
+    [SerializeField] Text Timer;
+    [SerializeField] GameObject Over;
+    [SerializeField] GameObject Clear;
+    int sec = 0;
+    int sec2 = 0;
     [SerializeField] Text Count;
     void Start()
     {
+        Timer.text = "00:00";
         frame = 0;
         // Rigidbodyにアクセスして変数に保持
         myRigidbody = GetComponent<Rigidbody2D>();
@@ -40,6 +46,12 @@ class Player_Kotatumuri : MonoBehaviour
         // 左右のキー入力により速度を変更する
         myRigidbody.velocity = new Vector3(Input.GetAxis("Horizontal") * speed, 0f, 0f);
         Move();
+            if (Over.activeSelf == false && Clear.activeSelf == false)
+            {
+                Timer.text = sec2.ToString("d2") + ":" + sec.ToString("d2");
+                sec++;
+                if (sec >= 60) { sec = 0; sec2 += 1; }
+            }
         }
     }
 

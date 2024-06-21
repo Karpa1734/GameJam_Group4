@@ -1,3 +1,4 @@
+using KanKikuchi.AudioManager;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -84,13 +85,14 @@ class Ball_Fuji : MonoBehaviour
     }
 
             private void OnDestroy(){
-                Over.SetActive(true);
+        SEManager.Instance.Play(SEPath.OVER);
+        Over.SetActive(true);
             }
 
             private void OnTriggerEnter2D(Collider2D collision)
     {
         // Handle collisions based on tag
-        
+        SEManager.Instance.Play(SEPath.HIT);
         switch (collision.tag)
         {
             case "LeftWall"://���[����

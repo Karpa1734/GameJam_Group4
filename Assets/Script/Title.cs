@@ -1,3 +1,4 @@
+using KanKikuchi.AudioManager;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -27,6 +28,7 @@ public class Title : MonoBehaviour
 
     public void OnButton(int i)
     {
+        SEManager.Instance.Play(SEPath.UI);
         if (i == 1)
         {
             SceneManager.LoadScene("Karpa");
@@ -49,7 +51,11 @@ public class Title : MonoBehaviour
         }
         else if (i == 6)
         {
-            SceneManager.LoadScene("Extra");
+    #if UNITY_EDITOR
+                UnityEditor.EditorApplication.isPlaying = false;//ゲームプレイ終了
+    #else
+     Application.Quit();//ゲームプレイ終了
+    #endif  
         }
     }
 

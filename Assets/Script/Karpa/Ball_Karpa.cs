@@ -1,3 +1,4 @@
+using KanKikuchi.AudioManager;
 using UnityEngine;
 
 class Ball_Karpa : MonoBehaviour
@@ -44,6 +45,7 @@ class Ball_Karpa : MonoBehaviour
         tagObjects = GameObject.FindGameObjectsWithTag("Ball");
         if (tagObjects.Length == 1)
         {
+            SEManager.Instance.Play(SEPath.OVER);
             Over.SetActive(true);//ゲームオーバー
             speed = 0;
         }
@@ -94,7 +96,7 @@ class Ball_Karpa : MonoBehaviour
         private void OnTriggerEnter2D(Collider2D collision)
     {
         // Handle collisions based on tag
-        
+        SEManager.Instance.Play(SEPath.HIT);
         switch (collision.tag)
         {
             case "LeftWall"://左端反射
