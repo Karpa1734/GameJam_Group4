@@ -58,8 +58,7 @@ class Player_Karpa : MonoBehaviour
 
     void Move()
     {
-        if (frame > 210 && Over.activeSelf == false && Clear.activeSelf == false)
-        {
+        
             x = (int)Input.GetAxisRaw("Horizontal");
             y = (int)Input.GetAxisRaw("Vertical");
             //左シフトを押している間は速度低下
@@ -81,6 +80,6 @@ class Player_Karpa : MonoBehaviour
                       );
 
             transform.position = nextPoint;
-        }
+        
     }
 }
