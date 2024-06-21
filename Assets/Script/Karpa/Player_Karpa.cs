@@ -42,16 +42,18 @@ class Player_Karpa : MonoBehaviour
         if (frame == 210) { Count.text = "GO!!"; }
         if (frame == 240) { Count.text = " "; }
         //カウントダウンが終わったら動き出す
-        if (frame>210 && Over.activeSelf == false && Clear.activeSelf == false)
+        if (frame>210 )
         { 
         // 左右のキー入力により速度を変更する
         myRigidbody.velocity = new Vector3(Input.GetAxis("Horizontal") * speed, 0f, 0f);
         Move();
-            Timer.text = sec2.ToString("d2") + ":" + sec.ToString("d2");
-            sec++;
-            if(sec >= 60){ sec = 0; sec2 += 1; }
+            if (Over.activeSelf == false && Clear.activeSelf == false)
+            {
+                Timer.text = sec2.ToString("d2") + ":" + sec.ToString("d2");
+                sec++;
+                if (sec >= 60) { sec = 0; sec2 += 1; }
+            }
         }
-        else { speed= 0; }
     }
 
     void Move()
