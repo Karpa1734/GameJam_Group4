@@ -4,50 +4,65 @@ using UnityEngine.UI;
 
 class Player_Fuji : MonoBehaviour
 {
-    // ƒvƒŒƒCƒ„[‚ÌˆÚ“®‚Ì‘¬‚³
+    // ï¿½vï¿½ï¿½ï¿½Cï¿½ï¿½ï¿½[ï¿½ÌˆÚ“ï¿½ï¿½Ì‘ï¿½ï¿½ï¿½
     public float speedBase = 8;
     private float speed;
     Rigidbody2D myRigidbody;
     int x, y;
     public static int frame = 0;
     [SerializeField] Text Count;
+    [SerializeField] Text taimer;
+    [SerializeField] GameObject Gameover;
+    [SerializeField] GameObject Gameclear;
+     int second1,second2;
     void Start()
-    {
+    {   second1=0;
+        second2=0;
+        taimer.text="00:00";
         frame = 0;
-        // Rigidbody‚ÉƒAƒNƒZƒX‚µ‚Ä•Ï”‚É•Û
+        // Rigidbodyï¿½ÉƒAï¿½Nï¿½Zï¿½Xï¿½ï¿½ï¿½Ä•Ïï¿½ï¿½É•Ûï¿½
         myRigidbody = GetComponent<Rigidbody2D>();
-        //Å‰‚ÍƒJƒEƒ“ƒgƒ_ƒEƒ“‚Í‹ó”’
+        //ï¿½Åï¿½ï¿½ÍƒJï¿½Eï¿½ï¿½ï¿½gï¿½_ï¿½Eï¿½ï¿½ï¿½Í‹ï¿½
         Count.text = "";
     }
 
     void Update()
     {
-        //ƒGƒXƒP[ƒvƒL[‚Åƒ^ƒCƒgƒ‹‚Ö
+        //ï¿½Gï¿½Xï¿½Pï¿½[ï¿½vï¿½Lï¿½[ï¿½Åƒ^ï¿½Cï¿½gï¿½ï¿½ï¿½ï¿½
         if (Input.GetKey(KeyCode.Escape)) 
         {
             SceneManager.LoadScene("Title");
         }
 
         frame++;
-        //ƒJƒEƒ“ƒgƒ_ƒEƒ“‚·‚é
+        //ï¿½Jï¿½Eï¿½ï¿½ï¿½gï¿½_ï¿½Eï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
         if (frame== 30) { Count.text = "3"; }
         if (frame == 90) { Count.text = "2"; }
         if (frame == 150) { Count.text = "1"; }
         if (frame == 210) { Count.text = "GO!!"; }
         if (frame == 240) { Count.text = " "; }
-        //ƒJƒEƒ“ƒgƒ_ƒEƒ“‚ªI‚í‚Á‚½‚ç“®‚«o‚·
+        //ï¿½Jï¿½Eï¿½ï¿½ï¿½gï¿½_ï¿½Eï¿½ï¿½ï¿½ï¿½ï¿½Iï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ç“®ï¿½ï¿½ï¿½oï¿½ï¿½
         if (frame>210) { 
-        // ¶‰E‚ÌƒL[“ü—Í‚É‚æ‚è‘¬“x‚ğ•ÏX‚·‚é
+        // ï¿½ï¿½ï¿½Eï¿½ÌƒLï¿½[ï¿½ï¿½ï¿½Í‚É‚ï¿½è‘¬ï¿½xï¿½ï¿½ÏXï¿½ï¿½ï¿½ï¿½
         myRigidbody.velocity = new Vector3(Input.GetAxis("Horizontal") * speed, 0f, 0f);
         Move();
+        if(Gameover.activeSelf==false && Gameclear.activeSelf==false){
+            taimer.text=second2.ToString("d2")+":"+second1.ToString("d2");
+            second1++;
+            if(second1>=60){
+                second2++;
+                second1=0;
+            }
+        }
+
         }
     }
 
     void Move()
-    {
+    {   
         x = (int)Input.GetAxisRaw("Horizontal");
         y = (int)Input.GetAxisRaw("Vertical");
-        //¶ƒVƒtƒg‚ğ‰Ÿ‚µ‚Ä‚¢‚éŠÔ‚Í‘¬“x’á‰º
+        //ï¿½ï¿½ï¿½Vï¿½tï¿½gï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä‚ï¿½ï¿½ï¿½Ô‚Í‘ï¿½ï¿½xï¿½á‰º
         if (Input.GetKey(KeyCode.LeftShift))
         {
             speed = speedBase/3;
@@ -58,7 +73,7 @@ class Player_Fuji : MonoBehaviour
         }
 
         Vector3 nextPoint = transform.position + new Vector3(x, y, 0) * Time.deltaTime * speed;
-        //X‚Í-4.2`4.2ŠÔ‚Å‚Ì‚İˆÚ“®‰Â”\
+        //Xï¿½ï¿½-4.2ï¿½`4.2ï¿½Ô‚Å‚Ì‚İˆÚ“ï¿½ï¿½Â”\
         nextPoint = new Vector3(
                   Mathf.Clamp(nextPoint.x, -4.2f,  4.2f),
                   Mathf.Clamp(nextPoint.y, -4f, -4f),
