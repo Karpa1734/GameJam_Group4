@@ -14,6 +14,7 @@ class Ball_Karpa : MonoBehaviour
     GameObject[] tagObjects;
     [SerializeField] GameObject Over;
     [SerializeField] GameObject Clear;
+    bool IsClear = false;
     void Start()
     {
         Over.SetActive(false);//ゲームオーバー非表示
@@ -55,6 +56,11 @@ class Ball_Karpa : MonoBehaviour
         tagObjects = GameObject.FindGameObjectsWithTag("Target");
         if (tagObjects.Length == 0)
         {
+            if (IsClear == false)
+            {
+                SEManager.Instance.Play(SEPath.CLEAR2);
+                IsClear = true;
+            }
             PlayerPrefs.SetInt("Karpa_Clear", 1);
             Clear.SetActive(true);//ゲームクリア
             speed = 0;

@@ -6,7 +6,7 @@ using static TMPro.SpriteAssetUtilities.TexturePacker_JsonArray;
 class Ball_Kotatumuri : MonoBehaviour
 {
     // ボールの移動の速さを指定する変数
-    public static float speedBase = 15;
+    public static float speedBase = 12;
     private float speed;
     Rigidbody2D myRigidbody;
     float angle;
@@ -16,6 +16,7 @@ class Ball_Kotatumuri : MonoBehaviour
     GameObject[] tagObjects;
     [SerializeField] GameObject Over;
     [SerializeField] GameObject Clear;
+    bool IsClear = false;
     void Start()
     {
         speedBase = 15;
@@ -58,6 +59,11 @@ class Ball_Kotatumuri : MonoBehaviour
         tagObjects = GameObject.FindGameObjectsWithTag("Target");
         if (tagObjects.Length == 0)
         {
+            if (IsClear == false)
+            {
+                SEManager.Instance.Play(SEPath.CLEAR2);
+                IsClear = true;
+            }
             PlayerPrefs.SetInt("Kotatumuri_Clear", 1);
             Clear.SetActive(true);//ゲームクリア
             speed = 0;

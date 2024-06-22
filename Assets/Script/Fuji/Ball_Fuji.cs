@@ -17,6 +17,7 @@ class Ball_Fuji : MonoBehaviour
     GameObject[] tagObjects2;
     [SerializeField] GameObject Over;
     [SerializeField] GameObject Clear;
+    bool IsClear = false;
     void Start()
     {
         Over.SetActive(false);//�Q�[���I�[�o�[��\��
@@ -49,6 +50,11 @@ class Ball_Fuji : MonoBehaviour
         tagObjects2 = GameObject.FindGameObjectsWithTag("Target");
         if (tagObjects2.Length == 0)
         {
+            if (IsClear == false)
+            {
+                SEManager.Instance.Play(SEPath.CLEAR2);
+                IsClear = true;
+            }
             PlayerPrefs.SetInt("Fuji_Clear", 1);
             Clear.SetActive(true);//�Q�[���N���A
             speed = 0;
@@ -80,8 +86,11 @@ class Ball_Fuji : MonoBehaviour
     }
 
             private void OnDestroy(){
-        SEManager.Instance.Play(SEPath.OVER);
-        Over.SetActive(true);
+        if (IsClear == false)
+        {
+            SEManager.Instance.Play(SEPath.OVER);
+            Over.SetActive(true);
+        }
             }
 
             private void OnTriggerEnter2D(Collider2D collision)

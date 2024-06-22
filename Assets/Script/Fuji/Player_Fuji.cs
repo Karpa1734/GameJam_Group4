@@ -75,7 +75,7 @@ class Player_Fuji : MonoBehaviour
         Vector3 nextPoint = transform.position + new Vector3(x, y, 0) * Time.deltaTime * speed;
         //X��-4.2�`4.2�Ԃł݈̂ړ��\
         nextPoint = new Vector3(
-                  Mathf.Clamp(nextPoint.x, -4.2f,  4.2f),
+                  Mathf.Clamp(nextPoint.x, -3.7f, 3.7f),
                   Mathf.Clamp(nextPoint.y, -4f, -4f),
                   0
                   );

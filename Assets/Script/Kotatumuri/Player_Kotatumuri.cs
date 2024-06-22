@@ -72,7 +72,7 @@ class Player_Kotatumuri : MonoBehaviour
         Vector3 nextPoint = transform.position + new Vector3(x, y, 0) * Time.deltaTime * speed;
         //XÇÕ-4.2Å`4.2ä‘Ç≈ÇÃÇ›à⁄ìÆâ¬î\
         nextPoint = new Vector3(
-                  Mathf.Clamp(nextPoint.x, -4.2f,  4.2f),
+                  Mathf.Clamp(nextPoint.x, -3.7f, 3.7f),
                   Mathf.Clamp(nextPoint.y, -4f, -4f),
                   0
                   );
